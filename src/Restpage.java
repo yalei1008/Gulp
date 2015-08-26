@@ -128,14 +128,12 @@ public class Restpage extends HttpServlet {
 			
 			while (rs.next()) {
 				ans += "<h1>" + rs.getString("name") + "</h1>";
+				ans += "<p><b>Address:  </b>" + rs.getString("address") + "</p>";
+				ans += "<p><b>Description:  </b>" + rs.getString("description") + "</p>";
 				ans += "<br>";
-				ans += "<p>" + rs.getString("address") + "</p>";
-				ans += "<br>";
-				ans += "<p>" + rs.getString("description") + "</p>";
-				
 			}
 			
-			ans += "</table><h3>Reviews</h3><table>";
+			ans += "<h3>Reviews</h3><table class=\"table table-condensed\" style=\"position:relative; top:-1px;\">";
 			
 			
 			rs = dbc.query(
@@ -144,13 +142,13 @@ public class Restpage extends HttpServlet {
 			);
 			
 			while (rs.next()) {
-				ans += "<br>";
-				ans += "<p>" + rs.getString("name") + "</p>";
-				ans += "<p>" + rs.getString("review") + "</p>";
-				ans += "<p>" + rs.getString("rating") + "</p>";
-				ans += "<p>" + Utilities.reformatDate(rs.getString("r_date")) + "</p>";
+				ans += "<tr><th>" + rs.getString("name") + "</th>";
+				ans += "<th>" + Utilities.reformatDate(rs.getString("r_date")) + "</th></tr>";
+				ans += "<tr><td>" + rs.getString("rating") + " / 5 Stars</td>";
+				ans += "<td>" + rs.getString("review") + "</td></tr><tr><td> </td><td> </td></tr>";
 				ans += "<br/>";
 			}
+			ans += "</table>";
 
 		} catch (SQLException e) {
 			e.printStackTrace();
